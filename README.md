@@ -1,9 +1,13 @@
 # Why EAZYLABS ?
 
 Hello world !
+
 [After Heroku being acquired by salesforce, the free offer is not more available](https://blog.heroku.com/next-chapter). This will take effect on November 28, 2022.
+
 unfortunately our gitlab-ci and jenkins courses were based on the Dynos offer that enable us to deploy container and host them (550-1,000 dyno hours per month).
+
 we haven't found a credible alternative as easy as heroku that provide us a container hosting for free. We decide to build a very simple tool that help our student to deploy container through pipeline using simple curl (POST) request.
+
 So our student can provision temporary infrastructure and use them as infrastructure deployment more easily than ever.
 
 ## Prerequisites
@@ -27,6 +31,7 @@ If you want to deploy the API directly on the VM host please run the following c
        python3 src/main.py
 
 Something like this will be shown
+
 ![image](https://user-images.githubusercontent.com/18481009/187277175-d8604dfe-e5fa-457c-a9b1-92fa711e705e.png)
 
 
@@ -40,6 +45,7 @@ Make sure that  your **current user** have sufficient permisison to run docker c
      docker logs eazylabs
 
 Something like this will be shown
+
 ![image](https://user-images.githubusercontent.com/18481009/187277175-d8604dfe-e5fa-457c-a9b1-92fa711e705e.png)
 
 
@@ -47,6 +53,7 @@ Something like this will be shown
 ### Verify everything looks good
 To ensure that the application is up and running, please try to reach the api throught your browser or curl at http://< your server address >:1993
 You would get a mesage started with : `Welcome to EAZYTraining deployment API`
+
 ![image](https://user-images.githubusercontent.com/18481009/187278171-4381969e-dcf5-45f1-aedc-d3d56eefa2a8.png)
 Now you are ready for the deployment
 ## Container deployment
@@ -60,6 +67,7 @@ Simple send a POST request with curl for example with the following parameter
  - `internal_port` : your internal contatiner port used by your image corresponding to "-p" docker option
 
 **Example**:
+
 The follwing command will deploy nginx image in staging environnement
 
     curl -X POST http://< server address>/stating -H 'Content-Type: application/json' -d '{"your_name":"dirane","container_image":"nginx", "external_port":"80", "internal_port":"80"}'
@@ -75,7 +83,11 @@ The follwing command will deploy dirane/alpinehelloworld image in production env
  
 ### Temporary infrastructure
 If you are using temporary infrastructure like [killercoda](https://killercoda.com/), [play with docker](https://labs.play-with-docker.com/) or [play with eazytraining](http://docker.labs.eazytraining.fr/) don't forget that the port is content in the URL.
+
 **Example For the API URL:**
+
 http://ip10-0-1-3-cc6f19ssrdn0fvnms2og-***1993***.direct.docker.labs.eazytraining.fr/
+
 **Example For App deployed with external_port = 80:**
+
 http://ip10-0-1-4-cc6f19ssrdn0fvnms2og-***80***.direct.docker.labs.eazytraining.fr/
