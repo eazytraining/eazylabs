@@ -70,11 +70,11 @@ Simple send a POST request with curl for example with the following parameter
 
 The follwing command will deploy nginx image in staging environnement
 
-    curl -X POST http://< server address>/stating -H 'Content-Type: application/json' -d '{"your_name":"dirane","container_image":"nginx", "external_port":"80", "internal_port":"80"}'
+    curl -X POST http://< server address>:1993/stating -H 'Content-Type: application/json' -d '{"your_name":"dirane","container_image":"nginx", "external_port":"80", "internal_port":"80"}'
     
 The follwing command will deploy dirane/alpinehelloworld image in production environnement
 
-    curl -X POST http://< server address>/prod -H 'Content-Type: application/json' -d '{"your_name":"dirane","container_image":"dirane/alpinehelloworld", "external_port":"80", "internal_port":"5000"}'
+    curl -X POST http://< server address>:1993/prod -H 'Content-Type: application/json' -d '{"your_name":"dirane","container_image":"dirane/alpinehelloworld", "external_port":"80", "internal_port":"5000"}'
 
 ### Some rules
 
