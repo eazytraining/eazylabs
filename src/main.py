@@ -45,8 +45,6 @@ def prod():
     external_port=content['external_port']
     internal_port=content['internal_port']
     if(container_name and container_image and external_port and internal_port):
-      #print("good paramater")
-      #print(container_name, container_image, external_port, internal_port)
       deploy(container_name, container_image, external_port, internal_port)
       return "container created in production"
           
@@ -62,8 +60,6 @@ def staging():
     external_port=content['external_port']
     internal_port=content['internal_port']
     if(container_name and container_image and external_port and internal_port):
-      #print("good paramater")
-      #print(container_name, container_image, external_port, internal_port)
       deploy(container_name, container_image, external_port, internal_port)
       return "Application is ready"
     else:
@@ -74,21 +70,21 @@ def staging():
 def review():
     content=request.get_json()
     container_name="review-"+content['your_name']
-    container_image=content['container_image']
-    external_port=content['external_port']
-    internal_port=content['internal_port']
-    if(container_name and container_image and external_port and internal_port):
-      #print("good paramater")
-      #print(container_name, container_image, external_port, internal_port)
-      if Flask.request.method == 'POST':
-        deploy(container_name, container_image, external_port, internal_port)
-        return "Application is ready"
-      if Flask.request.method == 'DELETE':
-        delete(container_name)
-        return "Application is deleted"
+    if request.method == 'POST':
+        container_image=content['container_image']
+        external_port=content['external_port']
+        internal_port=content['internal_port']
+        if(container_name and container_image and external_port and internal_port):
+          deploy(container_name, container_image, external_port, internal_port)
+             
+          return "Application is ready\n"
+    if request.method == 'DELETE':
+        if(container_name):
+          delete(container_name)
+          return "Application is deleted\n"
     else:
-      print("please review you parameter")
-      return "Please review your parameter"
+      print("please review your parameters")
+      return "Please review your parameters"
   
     
 
