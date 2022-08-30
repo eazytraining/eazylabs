@@ -24,6 +24,18 @@ def deploy(container_name, container_image, external_port, internal_port):
     except docker.errors.APIError:
       return "ERROR please contact administrator"
 
+def delete(container_name):
+    client=docker.from_env()
+    try: 
+      webapp=client.containers.get(container_name)
+      webapp.remove(v=True, force=True)
+      return "container was deleted"
+    except docker.errors.NotFound:
+      print(container_name+" does not exist")
+      return "Nothing to delete"
+    except docker.errors.APIError:
+      return "ERROR please contact administrator"
+
 
 @app.route('/prod', methods = ['POST'])
 def prod():
@@ -57,6 +69,26 @@ def staging():
     else:
       print("please review you parameter")
       return "Please review your parameter"
+
+@app.route('/review', methods = ['POST', 'DELETE'])
+def review():
+    content=request.get_json()
+    container_name="review-"+content['your_name']
+    if(container_name):
+      #print("good paramater")
+      #print(container_name, container_image, external_port, internal_port)
+      if Flask.request.method == 'POST':
+        deploy(container_name)
+        return "Application is ready"
+      if Flask.request.method == 'DELETE':
+        delete(container_name)
+        return "Application is deleted"
+    else:
+      print("please review you parameter")
+      return "Please review your parameter"
+  
+    
+
 
 @app.route('/', methods = ['GET'])
 def welcome():
