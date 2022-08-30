@@ -36,13 +36,23 @@ Something like this will be shown
 
 
 ### Using docker (also easy to install)
-Make sure that  your **current user** have sufficient permisison to run docker command
+#### Use Eazytraining Image
+A docker image is available on [eazytraining/eazylabs](https://hub.docker.com/repository/docker/eazytraining/eazylabs). You can use it directly by running this command for example : 
+    
+    docker run -d --name eazylabs --privileged -v /var/run/docker.sock:/var/run/docker.sock -p 1993:1993 eazytraining/eazylabs:v1.0.0
+    
+#### Build your own image
+You are free to build image by your own. Just make sure that your **current user** have sufficient permisison to run docker command :
 
      git clone https://github.com/diranetafen/eazylabs.git
      cd eazylabs
      docker build -t eazylabs .
      docker run -d --name eazylabs --privileged -v /var/run/docker.sock:/var/run/docker.sock -p 1993:1993 eazylabs
-     docker logs eazylabs
+
+#### Check container is OK after running
+Show the containers logs with docker logs command : 
+     
+    docker logs eazylabs
 
 Something like this will be shown
 
