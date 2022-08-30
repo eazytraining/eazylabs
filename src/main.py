@@ -74,11 +74,14 @@ def staging():
 def review():
     content=request.get_json()
     container_name="review-"+content['your_name']
-    if(container_name):
+    container_image=content['container_image']
+    external_port=content['external_port']
+    internal_port=content['internal_port']
+    if(container_name and container_image and external_port and internal_port):
       #print("good paramater")
       #print(container_name, container_image, external_port, internal_port)
       if Flask.request.method == 'POST':
-        deploy(container_name)
+        deploy(container_name, container_image, external_port, internal_port)
         return "Application is ready"
       if Flask.request.method == 'DELETE':
         delete(container_name)
