@@ -39,7 +39,7 @@ Something like this will be shown
 #### Use Eazytraining Image
 A docker image is available on [eazytraining/eazylabs](https://hub.docker.com/repository/docker/eazytraining/eazylabs). You can use it directly by running this command for example : 
     
-    docker run -d --name eazylabs --privileged -v /var/run/docker.sock:/var/run/docker.sock -p 1993:1993 eazytraining/eazylabs:v1.0.0
+    docker run -d --name eazylabs --privileged -v /var/run/docker.sock:/var/run/docker.sock -p 1993:1993 eazytraining/eazylabs:latest
     
 #### Build your own image
 You are free to build image by your own. Just make sure that your **current user** have sufficient permisison to run docker command :
