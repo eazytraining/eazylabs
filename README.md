@@ -78,13 +78,21 @@ Simple send a POST request with curl for example with the following parameter
 
 **Example**:
 
-The follwing command will deploy nginx image in staging environnement
+- **Staging** : The follwing command will deploy nginx image in staging environnement
 
-    curl -X POST http://< server address>:1993/staging -H 'Content-Type: application/json' -d '{"your_name":"dirane","container_image":"nginx", "external_port":"80", "internal_port":"80"}'
+        curl -X POST http://< server address>:1993/staging -H 'Content-Type: application/json' -d '{"your_name":"dirane","container_image":"nginx", "external_port":"80", "internal_port":"80"}'
     
-The follwing command will deploy dirane/alpinehelloworld image in production environnement
+- **Production** : The follwing command will deploy dirane/alpinehelloworld image in production environnement
 
-    curl -X POST http://< server address>:1993/prod -H 'Content-Type: application/json' -d '{"your_name":"dirane","container_image":"dirane/alpinehelloworld", "external_port":"80", "internal_port":"5000"}'
+        curl -X POST http://< server address>:1993/prod -H 'Content-Type: application/json' -d '{"your_name":"dirane","container_image":"dirane/alpinehelloworld", "external_port":"80", "internal_port":"5000"}'
+    
+- **Review** : 
+    - The follwing command will deploy dirane/alpinehelloworld image in Review environnement
+
+            curl -X POST http://< server address>:1993/review -H 'Content-Type: application/json' -d '{"your_name":"dirane","container_image":"dirane/alpinehelloworld", "external_port":"80", "internal_port":"5000"}'
+    - The follwing command will delete dirane/alpinehelloworld image in Review environnement
+
+            curl -X DELETE http://< server address>:1993/review -H 'Content-Type: application/json' -d '{"your_name":"dirane"}'
 
 ### Some rules
 
