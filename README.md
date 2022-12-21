@@ -22,7 +22,7 @@ Make sure that
 Ensure that 
 If you want to deploy the API directly on the VM host please run the following commands
 
-    git clone https://github.com/diranetafen/eazylabs.git
+    git clone https://github.com/eazytraining/eazylabs.git
     cd eazylabs
     pip3  install  -r  requirements.txt
    
