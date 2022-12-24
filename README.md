@@ -12,7 +12,12 @@ So our student can provision temporary infrastructure and use them as infrastruc
 
 ## Prerequisites
 To use the application you need a ***virtual machine*** (`in the cloud, on-prem, in play-with-docker, in killercoda`) with ***docker installed***
+
+Also ensure that your docker image is **public** to prevent this issue (access deny)
+![image (4)](https://user-images.githubusercontent.com/18481009/209438392-a1f14205-7fd3-4dc1-8706-38da131fd7a1.png)
+
 **Caution**: This API must not be used in production invironment
+
 ## Installation
 ### From Scratch
 Make sure that
