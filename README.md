@@ -1,3 +1,4 @@
+
 # Why EAZYLABS ?
 
 Hello world !
@@ -114,3 +115,60 @@ http://ip10-0-1-3-cc6f19ssrdn0fvnms2og-***1993***.direct.docker.labs.eazytrainin
 **Example For App deployed with external_port = 80:**
 
 http://ip10-0-1-4-cc6f19ssrdn0fvnms2og-***80***.direct.docker.labs.eazytraining.fr/
+
+## Debug your deployment issue
+FOr many reason you will face a lot of issue and in this section we will provide to you a way the get log and debug your deployment.
+### From scratch deployment
+If you made a deployment from scratch (pyrhon3 src/main.py), you will get the log directly in the console
+
+![image](https://user-images.githubusercontent.com/18481009/187277175-d8604dfe-e5fa-457c-a9b1-92fa711e705e.png)
+
+### Using Docker
+If you use the easiest way to deploy eazylabs (container), the log must be get through `docker logs -f eazylabs`
+![image](https://user-images.githubusercontent.com/18481009/211189177-792d42c2-7726-4435-aecc-55d30a0a3748.png)
+
+### Test your deployment
+To test your deployment we recommend you to follow these steps:
+
+ - Launch linux terminal with `curl` command line installed
+ - Modify the deployment command with your own values :   `curl -X POST http://< server address>:1993/prod -H 'Content-Type: application/json' -d '{"your_name":"dirane","container_image":"dirane/alpinehelloworld", "external_port":"80", "internal_port":"5000"}'`
+![image](https://user-images.githubusercontent.com/18481009/211189466-92dd30f4-8a87-4871-b17a-8332c8540d61.png)
+ - Watch your logs to verify the result
+![image](https://user-images.githubusercontent.com/18481009/211189513-ca09e338-6291-43b1-9c40-34b7c4ca2dee.png)
+
+Another example with error (we remove "e" on image name to ensure that my image could not be download).
+
+    curl -X POST http://ip10-0-0-3-cet8pma46q9gga880adg-1993.direct.docker.labs.eazytraining.fr/prod -H 'Content-Type: application/json' -d '{"your_name":"dirane","container_image":"diran/alpinehelloworld", "external_port":"80", "internal_port":"5000"}'
+
+![image](https://user-images.githubusercontent.com/18481009/211189584-07dc253d-f880-41ae-994e-356d28075766.png)
+
+Check the result
+
+![image](https://user-images.githubusercontent.com/18481009/211189675-7dbb7139-d329-4722-9975-f611a88ad861.png)
+
+    Traceback (most recent call last):
+      File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 2525, in wsgi_app
+        response = self.full_dispatch_request()
+      File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 1822, in full_dispatch_request
+        rv = self.handle_user_exception(e)
+      File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 1820, in full_dispatch_request
+        rv = self.dispatch_request()
+      File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 1796, in dispatch_request
+        return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+      File "/app/src/main.py", line 48, in prod
+        deploy(container_name, container_image, external_port, internal_port)
+      File "/app/src/main.py", line 14, in deploy
+        image = client.images.pull(container_image)
+      File "/usr/local/lib/python3.10/site-packages/docker/models/images.py", line 465, in pull
+        pull_log = self.client.api.pull(
+      File "/usr/local/lib/python3.10/site-packages/docker/api/image.py", line 429, in pull
+        self._raise_for_status(response)
+      File "/usr/local/lib/python3.10/site-packages/docker/api/client.py", line 270, in _raise_for_status
+        raise create_api_error_from_http_exception(e) from e
+      File "/usr/local/lib/python3.10/site-packages/docker/errors.py", line 39, in create_api_error_from_http_exception
+        raise cls(e, response=response, explanation=explanation) from e
+    docker.errors.ImageNotFound: 404 Client Error for http+docker://localhost/v1.41/images/create?tag=latest&fromImage=diran%2Falpinehelloworld: Not Found ("pull access denied for diran/alpinehelloworld, repository does not exist or may require 'docker login': denied: requested access to the resource is denied")
+    10.0.0.2 - - [08/Jan/2023 09:45:12] "POST /prod HTTP/1.1" 500 -
+**ERROR** : *docker.errors.ImageNotFound: 404 Client Error for http+docker://localhost/v1.41/images/create?tag=latest&fromImage=diran%2Falpinehelloworld: Not Found ("pull access denied for diran/alpinehelloworld, repository does not exist or may require 'docker login': denied: requested access to the resource is denied")*
+
+So i can review my request and fix image name
