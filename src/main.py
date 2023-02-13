@@ -1,5 +1,4 @@
-from flask import Flask
-from flask import request
+from flask import Flask, request, make_response
 import docker
 
 app = Flask(__name__)
@@ -46,11 +45,11 @@ def prod():
     internal_port=content['internal_port']
     if(container_name and container_image and external_port and internal_port):
       deploy(container_name, container_image, external_port, internal_port)
-      return "container created in production"
+      return "Container created in production\n", 200
           
     else:
       print("please review you parameter")
-      return "Application is ready"
+      return "Application is not ready", 402
 
 @app.route('/staging', methods = ['POST'])
 def staging():
@@ -61,10 +60,10 @@ def staging():
     internal_port=content['internal_port']
     if(container_name and container_image and external_port and internal_port):
       deploy(container_name, container_image, external_port, internal_port)
-      return "Application is ready"
+      return "Container created in staging\n", 200
     else:
-      print("please review you parameter")
-      return "Please review your parameter"
+      print("please review you parameter\n")
+      return "Please review your parameter, application is not ready\n", 402
 
 @app.route('/review', methods = ['POST', 'DELETE'])
 def review():
@@ -77,14 +76,14 @@ def review():
         if(container_name and container_image and external_port and internal_port):
           deploy(container_name, container_image, external_port, internal_port)
              
-          return "Application is ready\n"
+          return "Container created in review\n", 200
     if request.method == 'DELETE':
         if(container_name):
           delete(container_name)
-          return "Application is deleted\n"
+          return "Application is deleted in review\n", 200
     else:
-      print("please review your parameters")
-      return "Please review your parameters"
+      print("please review your parameters\n")
+      return "Please review your parameters, application is not ready\n", 402
   
     
 
