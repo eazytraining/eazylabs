@@ -46,11 +46,11 @@ def prod():
     internal_port=content['internal_port']
     if(container_name and container_image and external_port and internal_port):
       deploy(container_name, container_image, external_port, internal_port)
-      return "container created in production"
+      return "Container created in production"
           
     else:
       print("please review you parameter")
-      return "Application is ready"
+      return "Application is not ready"
 
 @app.route('/staging', methods = ['POST'])
 def staging():
@@ -61,10 +61,10 @@ def staging():
     internal_port=content['internal_port']
     if(container_name and container_image and external_port and internal_port):
       deploy(container_name, container_image, external_port, internal_port)
-      return "Application is ready"
+      return "Container created in staging"
     else:
       print("please review you parameter")
-      return "Please review your parameter"
+      return "Please review your parameter, application is not ready"
 
 @app.route('/review', methods = ['POST', 'DELETE'])
 def review():
@@ -77,14 +77,14 @@ def review():
         if(container_name and container_image and external_port and internal_port):
           deploy(container_name, container_image, external_port, internal_port)
              
-          return "Application is ready\n"
+          return "Container created in review"
     if request.method == 'DELETE':
         if(container_name):
           delete(container_name)
-          return "Application is deleted\n"
+          return "Application is deleted in review\n"
     else:
       print("please review your parameters")
-      return "Please review your parameters"
+      return "Please review your parameters, application is not ready"
   
     
 
